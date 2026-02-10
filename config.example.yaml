@@ -1,0 +1,121 @@
+# URL Migration Toolkit Configuration
+# Copy this file to config.yaml and fill in your values.
+
+# ── Project ──────────────────────────────────────────────────
+project:
+  name: "my-migration"
+  description: "CMS to Shopify URL migration"
+
+# ── Source Platform (old site) ───────────────────────────────
+source:
+  platform: magento  # magento | wordpress | typo3 | csv
+  domains:
+    - "old-store.example.com"
+  api:
+    base_url: "https://old-store.example.com/rest/V1"
+    # For Magento OAuth 1.0:
+    consumer_key: "${MAGENTO_CONSUMER_KEY}"
+    consumer_secret: "${MAGENTO_CONSUMER_SECRET}"
+    access_token: "${MAGENTO_API_TOKEN}"
+    access_token_secret: "${MAGENTO_ACCESS_TOKEN_SECRET}"
+  # For CSV import (platform: csv):
+  # csv_file: "source_urls.csv"
+  # csv_columns:
+  #   url: "source_url"
+  #   type: "resource_type"
+  #   name: "name"
+
+# ── Target Platform (new site) ───────────────────────────────
+target:
+  platform: shopify
+  domain: "new-store.myshopify.com"
+  api:
+    store_url: "${SHOPIFY_STORE_URL}"
+    access_token: "${SHOPIFY_ACCESS_TOKEN}"
+    api_version: "2024-10"
+
+# ── URL Normalization ────────────────────────────────────────
+normalizer:
+  # Extensions to strip from source URLs
+  strip_extensions:
+    - ".html"
+    - ".htm"
+    - ".php"
+  # Query parameters to remove
+  strip_params:
+    - "utm_source"
+    - "utm_medium"
+    - "utm_campaign"
+    - "utm_content"
+    - "utm_term"
+    - "gclid"
+    - "fbclid"
+  # Trailing slash policy: "strip" | "add" | "preserve"
+  trailing_slash: "strip"
+  # Lowercase all paths
+  lowercase: true
+
+# ── Matching ─────────────────────────────────────────────────
+matchers:
+  # Order determines priority (first match wins)
+  pipeline:
+    - exact       # Exact handle/slug match
+    - sku         # Match by product SKU
+    - fuzzy       # Fuzzy name matching (SequenceMatcher)
+    - partial     # Substring containment
+    - pattern     # Regex rules (see below)
+
+  # Fuzzy matching threshold (0.0 - 1.0)
+  fuzzy_threshold: 0.85
+
+  # Slug transformation rules (applied before matching)
+  slug_transforms: []
+  #   - from: "ae"
+  #     to: "a"
+  #   - from: "oe"
+  #     to: "o"
+
+  # Regex pattern rules
+  patterns: []
+  #   - match: "^/catalog/product/view/id/(\\d+)"
+  #     action: lookup_by_id
+  #     target_type: product
+  #   - match: "^/catalogsearch/"
+  #     action: redirect
+  #     target: "/search"
+
+# ── Page Mappings ────────────────────────────────────────────
+# Explicit CMS page mappings (source identifier -> target path)
+page_mappings: {}
+#   agb: "/pages/agb"
+#   impressum: "/pages/impressum"
+#   datenschutz: "/pages/datenschutz"
+
+# ── Redirect Defaults ────────────────────────────────────────
+redirects:
+  # Default redirect type
+  default_type: 301
+  # Max redirects per Shopify upload batch
+  max_per_batch: 10000
+
+# ── Output ───────────────────────────────────────────────────
+output:
+  # Output directory (relative to project root)
+  directory: "output"
+  # Shopify redirect CSV columns
+  csv_columns:
+    source: "Redirect from"
+    target: "Redirect to"
+
+# ── Validation ───────────────────────────────────────────────
+validation:
+  # HTTP request timeout for live testing (seconds)
+  request_timeout: 15
+  # Rate limit delay between requests (seconds)
+  rate_limit_delay: 0.3
+  # Max redirect chain depth before declaring a loop
+  max_chain_depth: 10
+  # Old domains to test (for local testing)
+  old_domains: []
+  #   - "old-store.com"
+  #   - "old-store.de"
