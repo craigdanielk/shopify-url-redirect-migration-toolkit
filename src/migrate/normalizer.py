@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 if TYPE_CHECKING:
-    from migrate.config import MigrationConfig, NormalizerConfig
+    from migrate.config import NormalizerConfig
 
 
 def normalize_url(url: str, config: NormalizerConfig) -> str:

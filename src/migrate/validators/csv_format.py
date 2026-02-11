@@ -118,7 +118,11 @@ class CSVFormatValidator:
         for r in self.rows:
             if r["source"] and (r["source"].startswith("http") or not r["source"].startswith("/")):
                 src_issues.append(r["row_num"])
-            if r["target"] and not r["target"].startswith("/") and not r["target"].startswith("http"):
+            if (
+                r["target"]
+                and not r["target"].startswith("/")
+                and not r["target"].startswith("http")
+            ):
                 tgt_issues.append(r["row_num"])
 
         ok = True
@@ -155,7 +159,11 @@ class CSVFormatValidator:
         return self._check("Within limits", True, f"{count} rows (max: {limit})")
 
     def validate_encoding(self) -> bool:
-        issues = [r["row_num"] for r in self.rows if " " in r["source"] or any(ord(c) > 127 for c in r["source"])]
+        issues = [
+            r["row_num"]
+            for r in self.rows
+            if " " in r["source"] or any(ord(c) > 127 for c in r["source"])
+        ]
         if issues:
             return self._check("URL encoding", False, f"{len(issues)} URLs with encoding issues")
         return self._check("URL encoding", True, "All URLs properly formatted")

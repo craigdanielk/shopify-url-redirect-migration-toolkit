@@ -146,7 +146,9 @@ class TargetExistenceValidator:
 
         total = self.valid_count + self.broken_count
         rate = (self.valid_count / total * 100) if total else 0
-        console.print(f"  Valid: {self.valid_count}, Broken: {self.broken_count}, Rate: {rate:.1f}%")
+        console.print(
+            f"  Valid: {self.valid_count}, Broken: {self.broken_count}, Rate: {rate:.1f}%"
+        )
 
         if self.broken_count:
             console.print("[red]Broken targets:[/red]")

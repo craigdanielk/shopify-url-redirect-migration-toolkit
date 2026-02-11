@@ -1,0 +1,50 @@
+# Example: Generic CSV import
+# Use when you already have a list of old URLs to redirect.
+# No source API needed — just a CSV file.
+
+project:
+  name: csv-migration
+  description: "Map a CSV of old URLs to Shopify destinations"
+
+source:
+  platform: csv
+  csv_file: old_urls.csv
+  csv_columns:
+    url: source_url        # Column containing the old URL
+    type: resource_type    # Column containing product|page|category (optional)
+    name: name             # Column containing the page/product name (optional)
+
+target:
+  platform: shopify
+  domain: my-store.myshopify.com
+  api:
+    store_url: my-store.myshopify.com
+    access_token: ${SHOPIFY_ACCESS_TOKEN}
+    api_version: "2024-10"
+
+normalizer:
+  strip_extensions: [".html", ".htm", ".php", ".asp", ".aspx"]
+  strip_params: [utm_source, utm_medium, utm_campaign, gclid, fbclid, ref]
+  trailing_slash: strip
+  lowercase: true
+
+matchers:
+  pipeline: [exact, fuzzy, partial]
+  fuzzy_threshold: 0.80
+
+page_mappings:
+  # Map old page slugs to Shopify page handles
+  about: /pages/about
+  contact: /pages/contact
+
+output:
+  directory: output
+
+upload:
+  batch_size: 50
+  skip_existing: true
+  flatten_chains: true
+
+validation:
+  request_timeout: 15
+  rate_limit_delay: 0.3

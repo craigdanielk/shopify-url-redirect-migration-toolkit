@@ -13,7 +13,6 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, Field, model_validator
 
-
 # ── Sub-models ───────────────────────────────────────────────
 
 
@@ -107,6 +106,32 @@ class ValidationConfig(BaseModel):
     old_domains: list[str] = Field(default_factory=list)
 
 
+class UploadConfig(BaseModel):
+    """Configuration for Shopify redirect upload."""
+
+    batch_size: int = 50
+    pause_between_batches: float = 2.0
+    skip_existing: bool = True
+    flatten_chains: bool = True
+
+
+class MarketConfig(BaseModel):
+    """Defines a locale/market with its URL prefix and domain mappings."""
+
+    locale: str = ""  # e.g. "de", "en", "fr"
+    prefix: str = ""  # e.g. "/de", "/en" — prepended to redirects
+    source_domains: list[str] = Field(default_factory=list)  # Old domains for this market
+    target_domain: str = ""  # Shopify target domain (if different per-market)
+    hreflang: str = ""  # e.g. "de-CH", "en-GB"
+
+
+class DiscoverConfig(BaseModel):
+    """Configuration for Wayback Machine URL discovery."""
+
+    enabled: bool = False
+    sitemap_url: str = ""  # e.g. "https://example.com/sitemap.xml"
+
+
 # ── Root Config ──────────────────────────────────────────────
 
 
@@ -122,6 +147,9 @@ class MigrationConfig(BaseModel):
     redirects: RedirectsConfig = Field(default_factory=RedirectsConfig)
     output: OutputConfig = Field(default_factory=OutputConfig)
     validation: ValidationConfig = Field(default_factory=ValidationConfig)
+    upload: UploadConfig = Field(default_factory=UploadConfig)
+    markets: list[MarketConfig] = Field(default_factory=list)
+    discover: DiscoverConfig = Field(default_factory=DiscoverConfig)
 
     @model_validator(mode="before")
     @classmethod

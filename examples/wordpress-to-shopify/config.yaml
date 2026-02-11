@@ -1,0 +1,77 @@
+# Example: WordPress to Shopify migration
+# Copy this file and customize for your store.
+
+project:
+  name: wordpress-migration
+  description: "Migrate WordPress blog/store to Shopify"
+
+source:
+  platform: wordpress
+  domains:
+    - old-wordpress-site.com
+    - www.old-wordpress-site.com
+  api:
+    base_url: https://old-wordpress-site.com
+
+target:
+  platform: shopify
+  domain: new-store.myshopify.com
+  api:
+    store_url: new-store.myshopify.com
+    access_token: ${SHOPIFY_ACCESS_TOKEN}
+    api_version: "2024-10"
+
+discover:
+  enabled: true
+  sitemap_url: https://old-wordpress-site.com/sitemap.xml
+
+normalizer:
+  strip_extensions: [".html", ".htm", ".php"]
+  strip_params: [utm_source, utm_medium, utm_campaign, gclid, fbclid]
+  trailing_slash: strip
+  lowercase: true
+
+matchers:
+  pipeline: [exact, fuzzy, partial, pattern]
+  fuzzy_threshold: 0.80
+  patterns:
+    # WordPress category URLs → Shopify collections
+    - match: "^/category/(.+)"
+      action: redirect
+      target: "/collections/$1"
+    # WordPress tag URLs → gone (or redirect to search)
+    - match: "^/tag/(.+)"
+      action: gone
+    # WordPress author pages → gone
+    - match: "^/author/(.+)"
+      action: gone
+    # WordPress pagination → redirect to parent
+    - match: "^(.+)/page/\\d+"
+      action: redirect
+      target: "$1"
+
+page_mappings:
+  about: /pages/about
+  contact: /pages/contact
+  privacy-policy: /policies/privacy-policy
+  terms-and-conditions: /policies/terms-of-service
+
+output:
+  directory: output
+  csv_columns:
+    source: "Redirect from"
+    target: "Redirect to"
+
+upload:
+  batch_size: 50
+  pause_between_batches: 2.0
+  skip_existing: true
+  flatten_chains: true
+
+validation:
+  request_timeout: 15
+  rate_limit_delay: 0.3
+  max_chain_depth: 10
+  old_domains:
+    - old-wordpress-site.com
+    - www.old-wordpress-site.com

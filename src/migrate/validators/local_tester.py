@@ -93,7 +93,9 @@ class LocalTesterValidator:
                     item["category"] = cat
                     samples.append(item)
 
-        output_dir = Path(self.config.output.directory) / "tests" / "pre-launch" / "validation_reports"
+        output_dir = (
+            Path(self.config.output.directory) / "tests" / "pre-launch" / "validation_reports"
+        )
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Write instructions
@@ -113,15 +115,23 @@ class LocalTesterValidator:
             "-" * 70,
         ]
         for i, s in enumerate(samples, 1):
-            domain = self.old_domains[i % len(self.old_domains)] if self.old_domains else "old-domain.example.com"
+            domain = (
+                self.old_domains[i % len(self.old_domains)]
+                if self.old_domains
+                else "old-domain.example.com"
+            )
             full_source = f"https://{domain}{s['source']}"
-            full_target = f"{self.store_url}{s['target']}" if s["target"].startswith("/") else s["target"]
-            lines.extend([
-                f"",
-                f"  Test {i}: [{s['category'].upper()}]",
-                f"  Source:   {full_source}",
-                f"  Expected: {full_target}",
-            ])
+            full_target = (
+                f"{self.store_url}{s['target']}" if s["target"].startswith("/") else s["target"]
+            )
+            lines.extend(
+                [
+                    "",
+                    f"  Test {i}: [{s['category'].upper()}]",
+                    f"  Source:   {full_source}",
+                    f"  Expected: {full_target}",
+                ]
+            )
         lines.append("")
         lines.append("=" * 70)
 
@@ -132,10 +142,18 @@ class LocalTesterValidator:
         checklist_path = output_dir / "manual_test_checklist.csv"
         with open(checklist_path, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["Test #", "Category", "Source URL", "Expected Target", "Status", "Notes"])
+            writer.writerow(
+                ["Test #", "Category", "Source URL", "Expected Target", "Status", "Notes"]
+            )
             for i, s in enumerate(samples, 1):
-                domain = self.old_domains[i % len(self.old_domains)] if self.old_domains else "example.com"
-                writer.writerow([i, s["category"], f"https://{domain}{s['source']}", s["target"], "", ""])
+                domain = (
+                    self.old_domains[i % len(self.old_domains)]
+                    if self.old_domains
+                    else "example.com"
+                )
+                writer.writerow(
+                    [i, s["category"], f"https://{domain}{s['source']}", s["target"], "", ""]
+                )
 
         console.print(f"  Generated {len(samples)} test samples")
         console.print(f"  Instructions: {instructions_path}")

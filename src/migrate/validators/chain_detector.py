@@ -120,7 +120,10 @@ class ChainDetectorValidator:
             else:
                 norm_final = self._normalize_url(current_url)
                 norm_expected = self._normalize_url(expected)
-                if norm_final == norm_expected or urlparse(norm_final).path == urlparse(norm_expected).path:
+                if (
+                    norm_final == norm_expected
+                    or urlparse(norm_final).path == urlparse(norm_expected).path
+                ):
                     result["matches_target"] = True
                     result["result"] = "PASS"
                 else:

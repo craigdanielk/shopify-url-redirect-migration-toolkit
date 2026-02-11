@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import csv
 import json
-import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -18,7 +17,6 @@ from rich.progress import Progress
 
 from migrate.config import MigrationConfig
 from migrate.fetchers.base import FetchResult
-from migrate.matchers.base import MatchResult
 from migrate.matchers.exact import ExactMatcher
 from migrate.matchers.fuzzy import FuzzyMatcher
 from migrate.matchers.partial import PartialMatcher
@@ -404,9 +402,7 @@ class MigrationEngine:
 
                 # Map the resource type
                 if resource_type in ("product", "category", "collection"):
-                    matcher_type = (
-                        "collection" if resource_type == "category" else resource_type
-                    )
+                    matcher_type = "collection" if resource_type == "category" else resource_type
                     result = pipeline.match(
                         url_key or path,
                         product_id=resource_id,
@@ -545,7 +541,12 @@ class MigrationEngine:
                     redirects.append({src_col: source_path, tgt_col: target_path})
                     seen_sources.add(source_path)
 
-        with open(output_dir / "shopify_redirects_complete.csv", "w", newline="", encoding="utf-8") as f:
+        # Apply market locale prefixes if configured
+        redirects = self._apply_market_prefixes(redirects)
+
+        with open(
+            output_dir / "shopify_redirects_complete.csv", "w", newline="", encoding="utf-8"
+        ) as f:
             writer = csv.DictWriter(f, fieldnames=[src_col, tgt_col])
             writer.writeheader()
             writer.writerows(redirects)
@@ -553,7 +554,13 @@ class MigrationEngine:
         # 3. Unmapped URLs
         unmapped = [m for m in self.all_mappings if m["mapping_status"].startswith("UNMAPPED")]
         with open(rules_dir / "unmapped_urls.csv", "w", newline="", encoding="utf-8") as f:
-            fieldnames = ["source_url", "resource_type", "mapping_status", "notes", "suggested_action"]
+            fieldnames = [
+                "source_url",
+                "resource_type",
+                "mapping_status",
+                "notes",
+                "suggested_action",
+            ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for m in unmapped:
@@ -578,7 +585,8 @@ class MigrationEngine:
                     {
                         "target_url": target,
                         "source_url_count": len(sources),
-                        "source_urls": " | ".join(sources[:5]) + ("..." if len(sources) > 5 else ""),
+                        "source_urls": " | ".join(sources[:5])
+                        + ("..." if len(sources) > 5 else ""),
                     }
                 )
 
@@ -612,6 +620,40 @@ class MigrationEngine:
         for mtype, count in sorted(match_type_counts.items(), key=lambda x: -x[1]):
             console.print(f"  {mtype}: {count}")
 
+    # ── Multi-Market Support ─────────────────────────────────
+
+    def _apply_market_prefixes(self, redirects: list[dict[str, str]]) -> list[dict[str, str]]:
+        """Duplicate redirects for each configured market with locale prefixes."""
+        markets = self.config.markets
+        if not markets:
+            return redirects
+
+        src_col = self.config.output.csv_columns.get("source", "Redirect from")
+        tgt_col = self.config.output.csv_columns.get("target", "Redirect to")
+        expanded: list[dict[str, str]] = []
+
+        for r in redirects:
+            # Keep the original (no-prefix) redirect
+            expanded.append(r)
+            # Add market-prefixed variants
+            for market in markets:
+                prefix = market.prefix
+                if prefix:
+                    expanded.append(
+                        {
+                            src_col: f"{prefix}{r[src_col]}",
+                            tgt_col: f"{prefix}{r[tgt_col]}",
+                        }
+                    )
+
+        if len(expanded) > len(redirects):
+            console.print(
+                f"  Multi-market: expanded {len(redirects)} → {len(expanded)} "
+                f"redirects ({len(markets)} locales)"
+            )
+
+        return expanded
+
     # ── Fetcher Factory ──────────────────────────────────────
 
     def _create_source_fetcher(self):
@@ -640,6 +682,31 @@ class MigrationEngine:
                 url_column=cols.get("url", "source_url"),
                 type_column=cols.get("type", "resource_type"),
                 name_column=cols.get("name", "name"),
+            )
+
+        elif platform == "wordpress":
+            from migrate.fetchers.wordpress import WordPressFetcher
+
+            return WordPressFetcher(
+                base_url=self.config.source.api.base_url,
+                output_dir=self.output_dir / "00_source_data" / "source",
+            )
+
+        elif platform == "sitemap":
+            from migrate.fetchers.sitemap import SitemapFetcher
+
+            return SitemapFetcher(
+                sitemap_url=self.config.discover.sitemap_url
+                or f"{self.config.source.api.base_url}/sitemap.xml",
+                output_dir=self.output_dir / "00_source_data" / "source",
+            )
+
+        elif platform == "wayback":
+            from migrate.fetchers.wayback import WaybackFetcher
+
+            return WaybackFetcher(
+                domains=self.config.source.domains,
+                output_dir=self.output_dir / "00_source_data" / "source",
             )
 
         else:
