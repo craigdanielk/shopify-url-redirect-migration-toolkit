@@ -1,0 +1,84 @@
+matchers:
+  fuzzy_threshold: 0.8
+  pipeline:
+  - exact
+  - sku
+  - fuzzy
+  - partial
+  - pattern
+normalizer:
+  lowercase: true
+  strip_extensions:
+  - .html
+  - .htm
+  trailing_slash: strip
+output:
+  directory: /Users/craigkunte/Developer/GitHub/Personal/Aurelix_AG/shopify-url-redirect-migration-toolkit/stress-tests/test3-large/output
+page_mappings:
+  page-basic-44: /pages/page-basic-44
+  page-bio-37: /pages/page-bio-37
+  page-bio-41: /pages/page-bio-41
+  page-bio-7: /pages/page-bio-7
+  page-blue-13: /pages/page-blue-13
+  page-blue-14: /pages/page-blue-14
+  page-blue-18: /pages/page-blue-18
+  page-blue-19: /pages/page-blue-19
+  page-blue-24: /pages/page-blue-24
+  page-blue-3: /pages/page-blue-3
+  page-classic-17: /pages/page-classic-17
+  page-classic-26: /pages/page-classic-26
+  page-dark-28: /pages/page-dark-28
+  page-dark-29: /pages/page-dark-29
+  page-deluxe-20: /pages/page-deluxe-20
+  page-deluxe-25: /pages/page-deluxe-25
+  page-deluxe-30: /pages/page-deluxe-30
+  page-deluxe-35: /pages/page-deluxe-35
+  page-deluxe-5: /pages/page-deluxe-5
+  page-green-1: /pages/page-green-1
+  page-green-40: /pages/page-green-40
+  page-green-48: /pages/page-green-48
+  page-light-2: /pages/page-light-2
+  page-light-31: /pages/page-light-31
+  page-max-21: /pages/page-max-21
+  page-max-36: /pages/page-max-36
+  page-max-38: /pages/page-max-38
+  page-mini-23: /pages/page-mini-23
+  page-mini-47: /pages/page-mini-47
+  page-modern-43: /pages/page-modern-43
+  page-modern-6: /pages/page-modern-6
+  page-premium-15: /pages/page-premium-15
+  page-premium-16: /pages/page-premium-16
+  page-premium-22: /pages/page-premium-22
+  page-pro-0: /pages/page-pro-0
+  page-pro-32: /pages/page-pro-32
+  page-pro-45: /pages/page-pro-45
+  page-pro-46: /pages/page-pro-46
+  page-red-49: /pages/page-red-49
+  page-red-8: /pages/page-red-8
+  page-slim-10: /pages/page-slim-10
+  page-slim-34: /pages/page-slim-34
+  page-slim-9: /pages/page-slim-9
+  page-smart-39: /pages/page-smart-39
+  page-smart-42: /pages/page-smart-42
+  page-super-27: /pages/page-super-27
+  page-ultra-33: /pages/page-ultra-33
+  page-ultra-4: /pages/page-ultra-4
+  page-vintage-11: /pages/page-vintage-11
+  page-vintage-12: /pages/page-vintage-12
+project:
+  name: stress-test-large
+redirects:
+  max_per_batch: 50000
+source:
+  csv_columns:
+    name: name
+    type: resource_type
+    url: source_url
+  csv_file: /Users/craigkunte/Developer/GitHub/Personal/Aurelix_AG/shopify-url-redirect-migration-toolkit/stress-tests/test3-large/large_source.csv
+  platform: csv
+target:
+  api:
+    access_token: placeholder
+    store_url: stress-test.myshopify.com
+  domain: stress-test.myshopify.com
+  platform: shopify

@@ -1,0 +1,20 @@
+source_url,resource_type,name,url_key
+/espresso.html,product,Espresso,espresso
+/cappuccino.html,product,Cappuccino,cappuccino
+/latte.html,product,Latte,latte
+/mocha.html,product,Mocha,mocha
+/americano.html,product,Americano,americano
+/filter-kaffee.html,product,Filter Kaffee,filter-kaffee
+/lungo.html,product,Lungo,lungo
+/ristretto.html,product,Ristretto,ristretto
+/doppio.html,product,Doppio,doppio
+/macchiato.html,product,Macchiato,macchiato
+/category/bohnen.html,category,Bohnen,bohnen
+/category/kapseln.html,category,Kapseln,kapseln
+/category/zubehoer.html,category,Zubehoer,zubehoer
+/category/geschenke.html,category,Geschenke,geschenke
+/agb,cms_page,Agb,agb
+/impressum,cms_page,Impressum,impressum
+/kontakt,cms_page,Kontakt,kontakt
+/datenschutz,cms_page,Datenschutz,datenschutz
+/ueber-uns,cms_page,Ueber Uns,ueber-uns

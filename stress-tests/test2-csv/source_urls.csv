@@ -1,0 +1,41 @@
+source_url,resource_type,name,url_key
+/catalog/product/wool-runner.html,product,Wool Runner,wool-runner
+/catalog/product/tree-dasher.html,product,Tree Dasher,tree-dasher
+/catalog/product/trail-runner.html,product,Trail Runner,trail-runner
+/catalog/product/lounger.html,product,Lounger,lounger
+/catalog/product/pipper.html,product,Pipper,pipper
+/catalog/product/mizzle.html,product,Mizzle,mizzle
+/catalog/product/flyer.html,product,Flyer,flyer
+/catalog/product/skipper.html,product,Skipper,skipper
+/catalog/product/breeze-knit.html,product,Breeze Knit,breeze-knit
+/catalog/product/superlight-tree-runner.html,product,Superlight Tree Runner,superlight-tree-runner
+/catalog/product/kauri.html,product,Kauri,kauri
+/catalog/product/pacer.html,product,Pacer,pacer
+/catalog/product/rover.html,product,Rover,rover
+/catalog/product/natural-run.html,product,Natural Run,natural-run
+/catalog/product/wind-runner.html,product,Wind Runner,wind-runner
+/catalog/product/foam-runner.html,product,Foam Runner,foam-runner
+/catalog/product/cloud-stepper.html,product,Cloud Stepper,cloud-stepper
+/catalog/product/dawn-breaker.html,product,Dawn Breaker,dawn-breaker
+/catalog/product/peak-climber.html,product,Peak Climber,peak-climber
+/catalog/product/trail-blazer.html,product,Trail Blazer,trail-blazer
+/category/mens-shoes.html,category,Mens Shoes,mens-shoes
+/category/womens-shoes.html,category,Womens Shoes,womens-shoes
+/category/sale.html,category,Sale,sale
+/category/new-arrivals.html,category,New Arrivals,new-arrivals
+/category/running.html,category,Running,running
+/category/everyday.html,category,Everyday,everyday
+/category/winter.html,category,Winter,winter
+/category/socks.html,category,Socks,socks
+/category/accessories.html,category,Accessories,accessories
+/category/apparel.html,category,Apparel,apparel
+/about,cms_page,About,about
+/sustainability,cms_page,Sustainability,sustainability
+/contact,cms_page,Contact,contact
+/faq,cms_page,Faq,faq
+/returns,cms_page,Returns,returns
+/shipping,cms_page,Shipping,shipping
+/careers,cms_page,Careers,careers
+/press,cms_page,Press,press
+/stores,cms_page,Stores,stores
+/materials,cms_page,Materials,materials

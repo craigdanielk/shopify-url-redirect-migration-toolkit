@@ -1,0 +1,40 @@
+matchers:
+  fuzzy_threshold: 0.75
+  pipeline:
+  - exact
+  - fuzzy
+  - partial
+normalizer:
+  lowercase: true
+  strip_extensions:
+  - .html
+  - .htm
+  trailing_slash: strip
+output:
+  directory: /Users/craigkunte/Developer/GitHub/Personal/Aurelix_AG/shopify-url-redirect-migration-toolkit/stress-tests/test2-csv/output
+page_mappings:
+  about: /pages/about
+  careers: /pages/careers
+  contact: /pages/contact
+  faq: /pages/faq
+  materials: /pages/materials
+  press: /pages/press
+  returns: /pages/returns
+  shipping: /pages/shipping
+  stores: /pages/stores
+  sustainability: /pages/sustainability
+project:
+  name: stress-test-csv
+source:
+  csv_columns:
+    name: name
+    type: resource_type
+    url: source_url
+  csv_file: /Users/craigkunte/Developer/GitHub/Personal/Aurelix_AG/shopify-url-redirect-migration-toolkit/stress-tests/test2-csv/source_urls.csv
+  platform: csv
+target:
+  api:
+    access_token: placeholder
+    store_url: stress-test.myshopify.com
+  domain: stress-test.myshopify.com
+  platform: shopify

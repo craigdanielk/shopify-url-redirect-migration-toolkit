@@ -1,0 +1,56 @@
+# Stress Test 1: Sitemap-Only Discovery
+# Target: allbirds.com (public Shopify store with accessible sitemap)
+project:
+  name: "stress-test-sitemap"
+  description: "Sitemap discovery stress test against allbirds.com"
+
+source:
+  platform: sitemap
+  domains:
+    - "allbirds.com"
+
+target:
+  platform: shopify
+  domain: "allbirds.com"
+  api:
+    store_url: "allbirds.com"
+    access_token: "placeholder-not-needed-for-map-only"
+    api_version: "2024-10"
+
+discover:
+  enabled: true
+  sitemap_url: "https://www.allbirds.com/sitemap.xml"
+
+normalizer:
+  strip_extensions: [".html", ".htm", ".php"]
+  strip_params: [utm_source, utm_medium, utm_campaign, gclid, fbclid]
+  trailing_slash: strip
+  lowercase: true
+
+matchers:
+  pipeline: [exact, fuzzy, partial, pattern]
+  fuzzy_threshold: 0.7
+  patterns:
+    - match: "^/products/(.+)"
+      action: redirect
+      target: "/products/\\1"
+      target_type: product
+    - match: "^/collections/(.+)"
+      action: redirect
+      target: "/collections/\\1"
+      target_type: collection
+    - match: "^/pages/(.+)"
+      action: redirect
+      target: "/pages/\\1"
+      target_type: page
+
+output:
+  directory: "stress-tests/test1-sitemap/output"
+  csv_columns:
+    source: "Redirect from"
+    target: "Redirect to"
+
+validation:
+  request_timeout: 15
+  rate_limit_delay: 0.3
+  max_chain_depth: 10

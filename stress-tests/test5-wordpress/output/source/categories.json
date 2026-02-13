@@ -1,0 +1,134 @@
+[
+  {
+    "handle": "awards",
+    "title": "Awards",
+    "id": 143,
+    "link": "https://wordpress.org/news/category/awards/"
+  },
+  {
+    "handle": "community",
+    "title": "Community",
+    "id": 3,
+    "link": "https://wordpress.org/news/category/community/"
+  },
+  {
+    "handle": "design",
+    "title": "Design",
+    "id": 380,
+    "link": "https://wordpress.org/news/category/design/"
+  },
+  {
+    "handle": "development",
+    "title": "Development",
+    "id": 5,
+    "link": "https://wordpress.org/news/category/development/"
+  },
+  {
+    "handle": "docs-project",
+    "title": "Docs project",
+    "id": 24,
+    "link": "https://wordpress.org/news/category/general/newsletter/docs-project/"
+  },
+  {
+    "handle": "documentation",
+    "title": "Documentation",
+    "id": 6,
+    "link": "https://wordpress.org/news/category/documentation/"
+  },
+  {
+    "handle": "education",
+    "title": "Education",
+    "id": 625,
+    "link": "https://wordpress.org/news/category/education/"
+  },
+  {
+    "handle": "events",
+    "title": "Events",
+    "id": 7,
+    "link": "https://wordpress.org/news/category/events/"
+  },
+  {
+    "handle": "features",
+    "title": "Features",
+    "id": 8,
+    "link": "https://wordpress.org/news/category/features/"
+  },
+  {
+    "handle": "general",
+    "title": "General",
+    "id": 10,
+    "link": "https://wordpress.org/news/category/general/"
+  },
+  {
+    "handle": "interviews",
+    "title": "Interviews",
+    "id": 25,
+    "link": "https://wordpress.org/news/category/interviews/"
+  },
+  {
+    "handle": "meta",
+    "title": "Meta",
+    "id": 12,
+    "link": "https://wordpress.org/news/category/meta/"
+  },
+  {
+    "handle": "month-in-wordpress",
+    "title": "Month in WordPress",
+    "id": 191,
+    "link": "https://wordpress.org/news/category/month-in-wordpress/"
+  },
+  {
+    "handle": "newsletter",
+    "title": "Newsletter",
+    "id": 13,
+    "link": "https://wordpress.org/news/category/general/newsletter/"
+  },
+  {
+    "handle": "performance",
+    "title": "Performance",
+    "id": 547,
+    "link": "https://wordpress.org/news/category/performance/"
+  },
+  {
+    "handle": "podcast",
+    "title": "Podcast",
+    "id": 420,
+    "link": "https://wordpress.org/news/podcast/"
+  },
+  {
+    "handle": "releases",
+    "title": "Releases",
+    "id": 14,
+    "link": "https://wordpress.org/news/category/releases/"
+  },
+  {
+    "handle": "security",
+    "title": "Security",
+    "id": 15,
+    "link": "https://wordpress.org/news/category/security/"
+  },
+  {
+    "handle": "store",
+    "title": "Store",
+    "id": 16,
+    "link": "https://wordpress.org/news/category/store/"
+  },
+  {
+    "handle": "testing",
+    "title": "Testing",
+    "id": 18,
+    "link": "https://wordpress.org/news/category/testing/"
+  },
+  {
+    "handle": "updates",
+    "title": "Updates",
+    "id": 233,
+    "link": "https://wordpress.org/news/category/updates/"
+  },
+  {
+    "handle": "wordcamp",
+    "title": "WordCamp",
+    "id": 22,
+    "link": "https://wordpress.org/news/category/wordcamp/"
+  }
+]

@@ -1,0 +1,52 @@
+markets:
+- hreflang: de-CH
+  locale: de
+  prefix: /de
+- hreflang: en-GB
+  locale: en
+  prefix: /en
+- hreflang: fr-CH
+  locale: fr
+  prefix: /fr
+matchers:
+  fuzzy_threshold: 0.8
+  pipeline:
+  - exact
+  - fuzzy
+  - partial
+  slug_transforms:
+  - from: ae
+    to: a
+  - from: oe
+    to: o
+  - from: ue
+    to: u
+normalizer:
+  lowercase: true
+  strip_extensions:
+  - .html
+  - .htm
+  trailing_slash: strip
+output:
+  directory: /Users/craigkunte/Developer/GitHub/Personal/Aurelix_AG/shopify-url-redirect-migration-toolkit/stress-tests/test4-multimarket/output
+page_mappings:
+  agb: /pages/agb
+  datenschutz: /pages/datenschutz
+  impressum: /pages/impressum
+  kontakt: /pages/kontakt
+  ueber-uns: /pages/ueber-uns
+project:
+  name: multi-market-test
+source:
+  csv_columns:
+    name: name
+    type: resource_type
+    url: source_url
+  csv_file: /Users/craigkunte/Developer/GitHub/Personal/Aurelix_AG/shopify-url-redirect-migration-toolkit/stress-tests/test4-multimarket/source.csv
+  platform: csv
+target:
+  api:
+    access_token: placeholder
+    store_url: test-store.myshopify.com
+  domain: test-store.myshopify.com
+  platform: shopify

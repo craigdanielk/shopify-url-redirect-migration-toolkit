@@ -1,0 +1,362 @@
+{
+  "test1": {
+    "name": "Sitemap Discovery (allbirds.com)",
+    "status": "PASS",
+    "source_urls": 2494,
+    "mapped": 2411,
+    "unmapped": 83,
+    "errors": [],
+    "timing_seconds": 4.17,
+    "validator_results": {},
+    "spot_checks": [
+      {
+        "source": "/products/mens-wool-dasher-mizzles-stony-beige",
+        "url_key": "mens-wool-dasher-mizzles-stony-beige",
+        "resource_type": "product",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/products/mens-wool-dasher-mizzles-stony-beige"
+      },
+      {
+        "source": "/products/unisex-merino-blend-hoodie-rugged-beige",
+        "url_key": "unisex-merino-blend-hoodie-rugged-beige",
+        "resource_type": "product",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/products/unisex-merino-blend-hoodie-rugged-beige"
+      },
+      {
+        "source": "/products/womens-tree-runner-nz-thunder-green",
+        "url_key": "womens-tree-runner-nz-thunder-green",
+        "resource_type": "product",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/products/womens-tree-runner-nz-thunder-green"
+      },
+      {
+        "source": "/products/mens-cruiser-terralux",
+        "url_key": "mens-cruiser-terralux",
+        "resource_type": "product",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/products/mens-cruiser-terralux"
+      },
+      {
+        "source": "/products/mens-cruiser-canvas-warm-white",
+        "url_key": "mens-cruiser-canvas-warm-white",
+        "resource_type": "product",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/products/mens-cruiser-canvas-warm-white"
+      },
+      {
+        "source": "/pages/cookies",
+        "url_key": "cookies",
+        "resource_type": "cms_page",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/pages/cookies"
+      },
+      {
+        "source": "/pages/what-shoes-to-wear-when-traveling-someplace-cold",
+        "url_key": "what-shoes-to-wear-when-traveling-someplace-cold",
+        "resource_type": "cms_page",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/pages/what-shoes-to-wear-when-traveling-someplace-cold"
+      },
+      {
+        "source": "/collections/mens-allbirds-115",
+        "url_key": "mens-allbirds-115",
+        "resource_type": "category",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/collections/mens-allbirds-115"
+      },
+      {
+        "source": "/collections/womens-trino-brief",
+        "url_key": "womens-trino-brief",
+        "resource_type": "category",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/collections/womens-trino-brief"
+      },
+      {
+        "source": "/collections/womens-trino-puffer",
+        "url_key": "womens-trino-puffer",
+        "resource_type": "category",
+        "matched": true,
+        "match_type": "exact",
+        "target": "/collections/womens-trino-puffer"
+      }
+    ],
+    "match_type_breakdown": {
+      "exact": 2411
+    }
+  },
+  "test2": {
+    "name": "CSV Import (50 synthetic URLs)",
+    "status": "PASS",
+    "source_urls": 40,
+    "mapped": 33,
+    "unmapped": 7,
+    "errors": [],
+    "timing_seconds": 0.01,
+    "validator_results": {
+      "csv_format": "PASS",
+      "loop_detector": "PASS"
+    },
+    "spot_checks": [
+      {
+        "source": "/catalog/product/trail-runner.html",
+        "target": "https://stress-test.myshopify.com/products/trail-runner",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/returns",
+        "target": "https://stress-test.myshopify.com/pages/returns",
+        "status": "MAPPED",
+        "match_type": "config_page_mapping",
+        "confidence": 1.0
+      },
+      {
+        "source": "/catalog/product/flyer.html",
+        "target": "https://stress-test.myshopify.com/products/flyer",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/catalog/product/pipper.html",
+        "target": "https://stress-test.myshopify.com/products/pipper",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/catalog/product/wind-runner.html",
+        "target": "https://stress-test.myshopify.com/products/wind-runner",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/stores",
+        "target": "https://stress-test.myshopify.com/pages/stores",
+        "status": "MAPPED",
+        "match_type": "config_page_mapping",
+        "confidence": 1.0
+      },
+      {
+        "source": "/catalog/product/kauri.html",
+        "target": "https://stress-test.myshopify.com/products/kauri",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/materials",
+        "target": "https://stress-test.myshopify.com/pages/materials",
+        "status": "MAPPED",
+        "match_type": "config_page_mapping",
+        "confidence": 1.0
+      },
+      {
+        "source": "/press",
+        "target": "https://stress-test.myshopify.com/pages/press",
+        "status": "MAPPED",
+        "match_type": "config_page_mapping",
+        "confidence": 1.0
+      },
+      {
+        "source": "/contact",
+        "target": "https://stress-test.myshopify.com/pages/contact",
+        "status": "MAPPED",
+        "match_type": "config_page_mapping",
+        "confidence": 1.0
+      }
+    ]
+  },
+  "test3": {
+    "name": "Large Scale (2000 synthetic URLs)",
+    "status": "PASS",
+    "source_urls": 2000,
+    "mapped": 1354,
+    "unmapped": 646,
+    "errors": [],
+    "timing_seconds": 2.39,
+    "validator_results": {
+      "csv_format": "PASS",
+      "loop_detector": "PASS"
+    },
+    "spot_checks": [
+      {
+        "source": "/pro-max-201.html",
+        "target": "https://stress-test.myshopify.com/products/pro-max-201",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/green-basic-4.html",
+        "target": "https://stress-test.myshopify.com/products/green-basic-4",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/legacy/old-page-229.html",
+        "target": "",
+        "status": "UNMAPPED",
+        "match_type": "none",
+        "confidence": 0.0
+      },
+      {
+        "source": "/eco-pro-730.html",
+        "target": "https://stress-test.myshopify.com/products/eco-pro-730",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/dark-premium-3.html",
+        "target": "https://stress-test.myshopify.com/products/dark-premium-3",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/premium-modern-459.html",
+        "target": "https://stress-test.myshopify.com/products/premium-modern-459",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/legacy/old-page-350.html",
+        "target": "",
+        "status": "UNMAPPED",
+        "match_type": "none",
+        "confidence": 0.0
+      },
+      {
+        "source": "/red-light-1060.html",
+        "target": "https://stress-test.myshopify.com/products/red-light-690",
+        "status": "MAPPED",
+        "match_type": "fuzzy_name",
+        "confidence": 0.8148148148148148
+      },
+      {
+        "source": "/basic-eco-867.html",
+        "target": "https://stress-test.myshopify.com/products/basic-eco-867",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      },
+      {
+        "source": "/bio-green-930.html",
+        "target": "https://stress-test.myshopify.com/products/bio-green-930",
+        "status": "MAPPED",
+        "match_type": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "map_time_seconds": 2.38,
+    "match_type_breakdown": {
+      "exact": 1095,
+      "fuzzy_name": 209,
+      "config_page_mapping": 50
+    }
+  },
+  "test4": {
+    "name": "Multi-Market (de/en prefixes)",
+    "status": "PASS",
+    "source_urls": 19,
+    "mapped": 19,
+    "unmapped": 0,
+    "errors": [],
+    "timing_seconds": 0.01,
+    "validator_results": {
+      "csv_format": "PASS",
+      "loop_detector": "PASS"
+    },
+    "spot_checks": [],
+    "redirect_count": 76,
+    "market_breakdown": {
+      "base": 19,
+      "de": 19,
+      "en": 19,
+      "fr": 19
+    },
+    "expansion_ratio": 4.0
+  },
+  "test5": {
+    "name": "WordPress REST API Fetcher",
+    "status": "PASS",
+    "source_urls": 1088,
+    "mapped": 0,
+    "unmapped": 0,
+    "errors": [],
+    "timing_seconds": 26.32,
+    "validator_results": {},
+    "spot_checks": [
+      {
+        "handle": "awards",
+        "title": "Awards",
+        "type": "category",
+        "link": "https://wordpress.org/news/category/awards/"
+      },
+      {
+        "handle": "community",
+        "title": "Community",
+        "type": "category",
+        "link": "https://wordpress.org/news/category/community/"
+      },
+      {
+        "handle": "design",
+        "title": "Design",
+        "type": "category",
+        "link": "https://wordpress.org/news/category/design/"
+      },
+      {
+        "handle": "news",
+        "title": "News",
+        "type": "page",
+        "link": "https://wordpress.org/news/"
+      },
+      {
+        "handle": "all-posts",
+        "title": "All Posts",
+        "type": "page",
+        "link": "https://wordpress.org/news/all-posts/"
+      },
+      {
+        "handle": "ai-leaders-credential",
+        "title": "Piloting the AI Leaders Micro-Credential",
+        "type": "post",
+        "link": "https://wordpress.org/news/2026/02/ai-leaders-credential/"
+      },
+      {
+        "handle": "wordpress-6-9-1-maintenance-release",
+        "title": "WordPress 6.9.1 Maintenance Release",
+        "type": "post",
+        "link": "https://wordpress.org/news/2026/02/wordpress-6-9-1-maintenance-release/"
+      },
+      {
+        "handle": "new-ai-agent-skill",
+        "title": "New AI Agent Skill for WordPress",
+        "type": "post",
+        "link": "https://wordpress.org/news/2026/01/new-ai-agent-skill/"
+      }
+    ]
+  },
+  "test6": {
+    "name": "Fetch\u2192Map Disk Persistence Gap",
+    "status": "CONFIRMED BUG",
+    "errors": [],
+    "timing_seconds": 0.01,
+    "finding": "CONFIRMED: raw_urls from CSV/sitemap fetcher not persisted to disk. Separate fetch\u2192map CLI calls lose source data."
+  }
+}
