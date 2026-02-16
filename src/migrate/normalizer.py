@@ -1,7 +1,7 @@
 """URL normalizer — single shared module used by all components.
 
 Consolidates ad-hoc .html stripping, trailing slash handling, query param logic,
-and lowercasing that was scattered across the original Turm Kaffee codebase.
+and lowercasing for URL migration.
 """
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ def strip_extensions(url: str, extensions: list[str]) -> str:
     """Remove file extensions from the path portion of a URL.
 
     Examples:
-        /kaffee/kenner.html  ->  /kaffee/kenner
+        /category/example.html  ->  /category/example
         /about.php           ->  /about
     """
     if not extensions:
@@ -111,8 +111,8 @@ def extract_path(url: str) -> str:
     """Extract the relative path from a full URL.
 
     Examples:
-        https://shop.turmkaffee.ch/products/kenner  ->  /products/kenner
-        /products/kenner                             ->  /products/kenner
+        https://example-shop.example/products/example-product  ->  /products/example-product
+        /products/example-product                       ->  /products/example-product
     """
     if not url:
         return ""

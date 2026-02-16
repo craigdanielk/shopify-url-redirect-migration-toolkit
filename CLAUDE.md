@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A config-driven Python CLI tool that maps URLs from a source CMS (Magento, WordPress, etc.) to a target platform (Shopify) and generates redirect CSVs. Extracted from a working Magento-to-Shopify migration for Turm Kaffee (~2,855 lines across 13 scripts).
+A config-driven Python CLI tool that maps URLs from a source CMS (Magento, WordPress, etc.) to a target platform (Shopify) and generates redirect CSVs. Extracted from a working Magento-to-Shopify migration (~2,855 lines across 13 scripts).
 
 ## Architecture
 

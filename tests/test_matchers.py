@@ -17,7 +17,7 @@ from migrate.matchers.sku import SKUMatcher
 @pytest.fixture
 def product_handles():
     return {
-        "kenner": {"handle": "kenner", "title": "Kenner Kaffee"},
+        "example-product": {"handle": "example-product", "title": "Example Product"},
         "crema": {"handle": "crema", "title": "Crema Kaffee"},
         "espresso": {"handle": "espresso", "title": "Espresso Blend"},
         "mount-kenya-selection": {"handle": "mount-kenya-selection", "title": "Mount Kenya Selection"},
@@ -36,7 +36,7 @@ def collection_handles():
 @pytest.fixture
 def sku_map():
     return {
-        "tk-kenner-250": "kenner",
+        "ex-250": "example-product",
         "tk-crema-500": "crema",
         "tk-esp-250": "espresso",
     }
@@ -45,7 +45,7 @@ def sku_map():
 @pytest.fixture
 def title_map():
     return {
-        "kenner kaffee": "kenner",
+        "example product": "example-product",
         "crema kaffee": "crema",
         "espresso blend": "espresso",
     }
@@ -57,9 +57,9 @@ def title_map():
 class TestExactMatcher:
     def test_exact_product_match(self, product_handles, collection_handles):
         m = ExactMatcher(product_handles, collection_handles)
-        result = m.match("kenner", resource_type="product")
+        result = m.match("example-product", resource_type="product")
         assert result is not None
-        assert result.handle == "kenner"
+        assert result.handle == "example-product"
         assert result.match_type == "exact"
         assert result.confidence == 1.0
 
@@ -70,9 +70,9 @@ class TestExactMatcher:
 
     def test_case_insensitive(self, product_handles, collection_handles):
         m = ExactMatcher(product_handles, collection_handles)
-        result = m.match("KENNER", resource_type="product")
+        result = m.match("EXAMPLE-PRODUCT", resource_type="product")
         assert result is not None
-        assert result.handle == "kenner"
+        assert result.handle == "example-product"
 
     def test_collection_match(self, product_handles, collection_handles):
         m = ExactMatcher(product_handles, collection_handles)
@@ -101,9 +101,9 @@ class TestExactMatcher:
 class TestSKUMatcher:
     def test_direct_sku_match(self, sku_map):
         m = SKUMatcher(sku_map)
-        result = m.match("anything", sku="tk-kenner-250", resource_type="product")
+        result = m.match("anything", sku="ex-250", resource_type="product")
         assert result is not None
-        assert result.handle == "kenner"
+        assert result.handle == "example-product"
         assert result.match_type == "sku"
         assert result.confidence == 0.95
 
@@ -116,7 +116,7 @@ class TestSKUMatcher:
 
     def test_no_match_for_collections(self, sku_map):
         m = SKUMatcher(sku_map)
-        result = m.match("kenner", sku="tk-kenner-250", resource_type="collection")
+        result = m.match("example-product", sku="ex-250", resource_type="collection")
         assert result is None
 
     def test_no_sku_match(self, sku_map):
@@ -131,14 +131,14 @@ class TestSKUMatcher:
 class TestFuzzyMatcher:
     def test_exact_name_match(self, title_map):
         m = FuzzyMatcher(title_map, threshold=0.85)
-        result = m.match("kenner", name="Kenner Kaffee", resource_type="product")
+        result = m.match("example-product", name="Example Product", resource_type="product")
         assert result is not None
-        assert result.handle == "kenner"
+        assert result.handle == "example-product"
         assert result.confidence >= 0.85
 
     def test_close_name_match(self, title_map):
         m = FuzzyMatcher(title_map, threshold=0.7)
-        result = m.match("kenner", name="Kenner Kaffe", resource_type="product")
+        result = m.match("example-product", name="Example Produkt", resource_type="product")
         assert result is not None
 
     def test_below_threshold(self, title_map):
@@ -148,7 +148,7 @@ class TestFuzzyMatcher:
 
     def test_no_name(self, title_map):
         m = FuzzyMatcher(title_map)
-        result = m.match("kenner", resource_type="product")
+        result = m.match("example-product", resource_type="product")
         assert result is None
 
 
@@ -165,9 +165,9 @@ class TestPartialMatcher:
 
     def test_handle_in_url_key(self, product_handles, collection_handles):
         m = PartialMatcher(product_handles, collection_handles)
-        result = m.match("kenner-bohnen-250g", resource_type="product")
+        result = m.match("example-product-variant-250g", resource_type="product")
         assert result is not None
-        assert result.handle == "kenner"
+        assert result.handle == "example-product"
 
     def test_collection_partial(self, product_handles, collection_handles):
         m = PartialMatcher(product_handles, collection_handles)
@@ -232,8 +232,8 @@ class TestPipeline:
         pipeline = MatcherPipeline([exact, sku, fuzzy])
         assert pipeline.matcher_names == ["exact", "sku", "fuzzy"]
 
-        # "kenner" should be caught by exact, not sku or fuzzy
-        result = pipeline.match("kenner", sku="tk-kenner-250", name="Kenner Kaffee", resource_type="product")
+        # "example-product" should be caught by exact, not sku or fuzzy
+        result = pipeline.match("example-product", sku="ex-250", name="Example Product", resource_type="product")
         assert result is not None
         assert result.match_type == "exact"
 

@@ -20,8 +20,8 @@ def default_config():
 
 
 @pytest.fixture
-def turm_config():
-    """Config mimicking Turm Kaffee settings."""
+def example_config():
+    """Config with strip extensions and trailing slash (example store)."""
     return NormalizerConfig(
         strip_extensions=[".html", ".htm"],
         strip_params=["utm_source", "utm_medium", "gclid", "SID"],
@@ -35,7 +35,7 @@ def turm_config():
 
 class TestStripExtensions:
     def test_strips_html(self):
-        assert strip_extensions("/kaffee/kenner.html", [".html"]) == "/kaffee/kenner"
+        assert strip_extensions("/category/example-product.html", [".html"]) == "/category/example-product"
 
     def test_strips_htm(self):
         assert strip_extensions("/about.htm", [".htm", ".html"]) == "/about"
@@ -44,7 +44,7 @@ class TestStripExtensions:
         assert strip_extensions("/index.php", [".php"]) == "/index"
 
     def test_no_extension_no_change(self):
-        assert strip_extensions("/products/kenner", [".html"]) == "/products/kenner"
+        assert strip_extensions("/products/example-product", [".html"]) == "/products/example-product"
 
     def test_only_strips_one(self):
         assert strip_extensions("/file.html.html", [".html"]) == "/file.html"
@@ -56,8 +56,8 @@ class TestStripExtensions:
         assert strip_extensions("", [".html"]) == ""
 
     def test_full_url_with_extension(self):
-        result = strip_extensions("https://shop.turmkaffee.ch/kenner.html", [".html"])
-        assert result == "https://shop.turmkaffee.ch/kenner"
+        result = strip_extensions("https://shop.example-store.example/example.html", [".html"])
+        assert result == "https://shop.example-store.example/example"
 
 
 # ── strip_query_params ───────────────────────────────────────
@@ -72,9 +72,9 @@ class TestStripQueryParams:
         assert "valid=1" in result
 
     def test_strips_gclid(self):
-        url = "/products/kenner?gclid=abc123"
+        url = "/products/example-product?gclid=abc123"
         result = strip_query_params(url, ["gclid"])
-        assert result == "/products/kenner"
+        assert result == "/products/example-product"
 
     def test_preserves_valid_params(self):
         url = "/search?q=kaffee&page=2"
@@ -102,13 +102,13 @@ class TestStripQueryParams:
 
 class TestTrailingSlash:
     def test_strip_removes_slash(self):
-        assert apply_trailing_slash("/products/kenner/", "strip") == "/products/kenner"
+        assert apply_trailing_slash("/products/example-product/", "strip") == "/products/example-product"
 
     def test_strip_preserves_root(self):
         assert apply_trailing_slash("/", "strip") == "/"
 
     def test_add_adds_slash(self):
-        assert apply_trailing_slash("/products/kenner", "add") == "/products/kenner/"
+        assert apply_trailing_slash("/products/example-product", "add") == "/products/example-product/"
 
     def test_preserve_no_change_with_slash(self):
         assert apply_trailing_slash("/page/", "preserve") == "/page/"
@@ -122,10 +122,10 @@ class TestTrailingSlash:
 
 class TestExtractPath:
     def test_full_url(self):
-        assert extract_path("https://shop.turmkaffee.ch/products/kenner") == "/products/kenner"
+        assert extract_path("https://shop.example-store.example/products/example-product") == "/products/example-product"
 
     def test_relative_path(self):
-        assert extract_path("/products/kenner") == "/products/kenner"
+        assert extract_path("/products/example-product") == "/products/example-product"
 
     def test_root_url(self):
         assert extract_path("https://example.com") == "/"
@@ -134,26 +134,26 @@ class TestExtractPath:
         assert extract_path("") == ""
 
     def test_http_url(self):
-        assert extract_path("http://turmkaffee.de/kaffee.html") == "/kaffee.html"
+        assert extract_path("http://example-store.de/kaffee.html") == "/kaffee.html"
 
 
 # ── normalize_url (integrated) ───────────────────────────────
 
 
 class TestNormalizeUrl:
-    def test_full_normalization(self, turm_config):
-        url = "/Kaffee/Kenner.HTML?utm_source=google&SID=abc"
-        result = normalize_url(url, turm_config)
-        assert result == "/kaffee/kenner"
+    def test_full_normalization(self, example_config):
+        url = "/Category/Example.HTML?utm_source=google&SID=abc"
+        result = normalize_url(url, example_config)
+        assert result == "/category/example"
         assert "utm_source" not in result
         assert "SID" not in result
 
     def test_lowercasing(self, default_config):
-        assert normalize_url("/Products/KENNER", default_config) == "/products/kenner"
+        assert normalize_url("/Products/ExampleProduct", default_config) == "/products/exampleproduct"
 
     def test_no_lowercase_when_disabled(self):
         cfg = NormalizerConfig(lowercase=False)
-        assert normalize_url("/Products/KENNER", cfg) == "/Products/KENNER"
+        assert normalize_url("/Products/ExampleProduct", cfg) == "/Products/ExampleProduct"
 
 
 # ── apply_slug_transforms ────────────────────────────────────
@@ -178,7 +178,7 @@ class TestSlugTransforms:
 
 
 class TestNormalizePathForComparison:
-    def test_full_url_to_normalized_path(self, turm_config):
-        url = "https://shop.turmkaffee.ch/Kaffee/Kenner.html?utm_source=foo"
-        result = normalize_path_for_comparison(url, turm_config)
-        assert result == "/kaffee/kenner"
+    def test_full_url_to_normalized_path(self, example_config):
+        url = "https://shop.example-store.example/Category/Example.html?utm_source=foo"
+        result = normalize_path_for_comparison(url, example_config)
+        assert result == "/category/example"

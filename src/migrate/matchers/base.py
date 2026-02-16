@@ -14,7 +14,7 @@ class MatchResult:
     match_type: str  # exact, sku, fuzzy_name, partial, pattern, normalized, parent_fallback
     confidence: float  # 0.0 – 1.0
     target_type: str = "product"  # product | collection | page
-    target_path: str = ""  # e.g. /products/kenner
+    target_path: str = ""  # e.g. /products/example-product
     notes: str = ""
 
 

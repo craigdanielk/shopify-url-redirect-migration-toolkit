@@ -40,7 +40,7 @@ uv sync
 ### 1. Scaffold a project
 
 ```bash
-uv run migrate init --name turm-kaffee
+uv run migrate init --name my-store
 ```
 
 Creates a directory with standard subdirectories and a `config.yaml` template.

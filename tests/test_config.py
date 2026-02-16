@@ -25,17 +25,17 @@ def minimal_config(tmp_path):
 
 
 @pytest.fixture
-def turm_config(tmp_path):
+def example_config(tmp_path):
     config_path = tmp_path / "config.yaml"
     config_path.write_text(
         yaml.dump(
             {
-                "project": {"name": "turm-kaffee"},
+                "project": {"name": "example-store"},
                 "source": {
                     "platform": "magento",
-                    "domains": ["shop.turmkaffee.ch", "turmkaffee.de", "turmkaffee.at"],
+                    "domains": ["shop.example-store.example", "example-store.de", "example-store.at"],
                 },
-                "target": {"platform": "shopify", "domain": "shop.turmkaffee.ch"},
+                "target": {"platform": "shopify", "domain": "shop.example-store.example"},
                 "normalizer": {"strip_extensions": [".html"], "trailing_slash": "strip"},
                 "matchers": {
                     "pipeline": ["exact", "sku", "fuzzy", "partial", "pattern"],
@@ -59,11 +59,11 @@ class TestConfigLoading:
         assert cfg.source.platform == "csv"
         assert cfg.target.domain == "test.myshopify.com"
 
-    def test_load_turm_config(self, turm_config):
-        cfg = load_config(turm_config)
-        assert cfg.project.name == "turm-kaffee"
+    def test_load_example_config(self, example_config):
+        cfg = load_config(example_config)
+        assert cfg.project.name == "example-store"
         assert len(cfg.source.domains) == 3
-        assert "shop.turmkaffee.ch" in cfg.source.domains
+        assert "shop.example-store.example" in cfg.source.domains
         assert len(cfg.matchers.slug_transforms) == 2
         assert cfg.matchers.fuzzy_threshold == 0.85
         assert cfg.page_mappings["agb"] == "/pages/agb"

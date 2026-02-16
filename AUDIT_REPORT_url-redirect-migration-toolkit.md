@@ -127,8 +127,8 @@ A well-structured, config-driven Python CLI for CMS-to-Shopify URL redirect mapp
 **Result: NEAR-ZERO (acceptable)**
 
 Only 2 occurrences in `src/`, both in docstring comments (not executable code):
-- `normalizer.py:4` — `"...scattered across the original Turm Kaffee codebase"` (docstring context)
-- `normalizer.py:114` — `"https://shop.turmkaffee.ch/products/kenner -> /products/kenner"` (docstring example)
+- `normalizer.py:4` — `"...scattered across the original migration codebase"` (docstring context)
+- `normalizer.py:114` — `"https://example-shop.example/products/example-product -> /products/example-product"` (docstring example)
 
 **Verdict:** These are documentation examples, not functional code. Zero hardcoded domains in executable `src/` logic. **PASS.**
 
@@ -207,7 +207,7 @@ All defaults are documented in `config.example.yaml`. **PASS.**
 
 | Test File | What It Tests | What It Misses |
 |---|---|---|
-| `test_config.py` (104 lines) | Config loading (minimal, turm), defaults, env var interpolation, missing file, empty config | Multi-market config parsing (covered in `test_multi_market.py`), upload config, validation config |
+| `test_config.py` (104 lines) | Config loading (minimal, example store), defaults, env var interpolation, missing file, empty config | Multi-market config parsing (covered in `test_multi_market.py`), upload config, validation config |
 | `test_normalizer.py` (184 lines) | All 6 functions: strip_extensions (8 cases), strip_query_params (6 cases), trailing_slash (5 cases), extract_path (5 cases), normalize_url (3 cases), slug_transforms (2 cases), normalize_path_for_comparison (1 case) | Edge cases for full URLs with query + extension + slash combined |
 | `test_matchers.py` (255 lines) | All 5 matchers + pipeline: ExactMatcher (6 cases), SKUMatcher (4 cases), FuzzyMatcher (4 cases), PartialMatcher (3 cases), PatternMatcher (5 cases), Pipeline (3 cases) | PatternMatcher capture group expansion (`\1` replacement), page matching in ExactMatcher |
 | `test_mapper.py` (139 lines) | End-to-end mapping, unmapped URL detection, dry-run, loop detection | Multi-domain source URLs, market prefix expansion in output, CMS page mapping via `page_mappings` config |

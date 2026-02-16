@@ -23,9 +23,9 @@ def tmp_project(tmp_path):
     magento_products = [
         {
             "id": 1,
-            "sku": "TK-KEN-250",
-            "name": "Kenner Kaffee",
-            "custom_attributes": [{"attribute_code": "url_key", "value": "kenner"}],
+            "sku": "EX-250",
+            "name": "Example Product",
+            "custom_attributes": [{"attribute_code": "url_key", "value": "example-product"}],
         },
         {
             "id": 2,
@@ -46,7 +46,7 @@ def tmp_project(tmp_path):
 
     # Target: Shopify products
     shopify_products = [
-        {"handle": "kenner", "title": "Kenner Kaffee", "variants": [{"sku": "TK-KEN-250"}]},
+        {"handle": "example-product", "title": "Example Product", "variants": [{"sku": "EX-250"}]},
         {"handle": "crema", "title": "Crema Kaffee", "variants": [{"sku": "TK-CRE-500"}]},
     ]
     shopify_collections = [
@@ -93,10 +93,10 @@ class TestMigrationEngine:
         with open(redirect_csv, newline="") as f:
             rows = list(csv.DictReader(f))
 
-        # kenner and crema should be mapped
+        # example-product and crema should be mapped
         # Source paths retain .html (that's what needs redirecting)
         sources = [r["Redirect from"] for r in rows]
-        assert "/kenner.html" in sources
+        assert "/example-product.html" in sources
         assert "/crema.html" in sources
 
     def test_unmapped_urls_created(self, tmp_project):
