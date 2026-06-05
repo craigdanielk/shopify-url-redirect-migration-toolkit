@@ -107,11 +107,15 @@ class ShopifyFetcher:
         return all_collections
 
     def fetch_pages(self) -> list[dict[str, Any]]:
-        """Fetch all pages."""
-        resp = self._get("pages.json", {"limit": 250})
-        pages = resp.json().get("pages", [])
-        console.print(f"  Shopify: fetched {len(pages)} pages")
-        return pages
+        """Fetch all pages (skips if token lacks read_pages scope)."""
+        try:
+            resp = self._get("pages.json", {"limit": 250})
+            pages = resp.json().get("pages", [])
+            console.print(f"  Shopify: fetched {len(pages)} pages")
+            return pages
+        except Exception as e:
+            console.print(f"  [yellow]Pages unavailable ({e}), continuing without pages[/yellow]")
+            return []
 
     def fetch_all(self) -> FetchResult:
         """Fetch everything and optionally save to disk."""

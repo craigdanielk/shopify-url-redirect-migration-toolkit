@@ -390,6 +390,13 @@ class MigrationEngine:
                 path = extract_path(source_url)
                 path = normalize_url(path, self.config.normalizer)
 
+                # Infer cms_page when path matches page_mappings (e.g. Wayback gives "unknown")
+                path_segment = (path.strip("/").split("/")[0] or "").split(".")[0]
+                identifier_for_page = (url_key or path_segment).split(".")[0]
+                if resource_type == "unknown" and identifier_for_page in self.config.page_mappings:
+                    resource_type = "cms_page"
+                    url_key = identifier_for_page
+
                 mapping: dict[str, Any] = {
                     "source_url": source_url,
                     "target_url": "",
